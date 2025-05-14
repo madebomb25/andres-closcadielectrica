@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <vector>
+#include <algorithm>
 #include "BST.hpp"
 #include "ParFreq.hpp"
 using namespace std;
@@ -15,41 +17,41 @@ class Diccionari {
 	public:
   	
 	   //*********************************************************
-	   // Constructors
+	   // Constructores
 	   //*********************************************************
 	   
-	   //...
+	   /* Pre: Cierto */
+	   /* Post: Crea un objeto de la clase Diccionari con un BST 
+	   vacío. */
+	   Diccionari(); 
 	   
 	   //*********************************************************
 	   // Destructor
 	   //*********************************************************
 	   
-	   //...
+	   /* Borra automáticamente el objeto al salir de un ámbito de 
+		visibilidad local. */ 
+	   ~Diccionari(); 
 	 
    	   //*********************************************************
 	   // Modificadors
 	   //*********************************************************
 	   
-	   /* Pre: Cert */
-	   /* Post: Si la paraula del parell rebut per  paràmetre no 
-		apareixia ja al diccionari, s'ha afegit al diccionari el
-		parell rebut per paràmetre; altrament, el diccionari no 
-		s'ha modificat */
-	   void insereix(const ParFreq &pf);  // inserció en el BST
+	   /* ELIMINADO EL MÉTODO insereix de FORMA PROVISIONAL */
 	   
 	   //*********************************************************
 	   // Consultors
 	   //*********************************************************
 	   
-	   /* Pre:  Cert  */
-	   /* Post: El resultat indica si el diccionari conté la
-	   paraula rebuda per paràmetre */	   
+	   /* Pre: Cierto */
+	   /* Post: El resultado indica si el diccionario contiene la
+		palabra recibida por parámetro */	   
 	   bool conte(const string &paraula) const; // cerca en el BST
 	   
-	   /* Pre: La paraula rebuda per paràmetre està en el
-		diccionari */
-	   /* Post: El resultat és la freqüència que apareix al
-		diccionari de la paraula rebuda per paràmetre */	 
+	   /* Pre: La palabra recibida por parámetro está en el
+		diccionario */
+	   /* Post: El resultado es la frecuencia que aparece en el
+		diccionario de la palabra recibida por parámetro */	 
 	   int getFrequencia(const string &paraula) const;
 	   
 	   //...
@@ -57,20 +59,32 @@ class Diccionari {
 	   //...
 	   
 	   //*********************************************************
-	   //Lectura i escriptura
+	   //Lectura y escritura
 	   //*********************************************************
 	   
-	   /* Pre: Cert */
-	   /* Post: Si el path rebut per paràmetre està associat a un
-		fitxer, llegeix el fitxer de parells (paraula, freqüència)
-		i omple el diccionari; altrament, mostra un missatge 
-		d'error.*/
-	   void llegeixDeFitxer(const string &path);
+	   /* Pre: Cierto */
+	   /* Post: Si el path recibido per parámetro está asociado a un
+		archivo, lee el archivo de pares (palabra, frecuencia), los ordena
+		alfabéticamente y los distribuye en un BST balanceado. */
+	   void construeixDiccionari(const string &path);
 	  
 	private:
 	
 		// IMPLEMENTACIÓ DE LA CLASSE Diccionari 
 		// (definició del nom i tipus de cada atribut)
 		// (poden definir-se mètodes privats que actuïn com a funcions auxiliars)
+		BST<ParFreq> dictionary; 
+
+		// Vector que almacena todos los ParFreq del archivo de entrada
+		vector<ParFreq> dictionary_vector; 
+
+
+	   //*********************************************************
+	   //Métodos auxiliares
+	   //*********************************************************
+	   /* Pre: ? */
+	   /* Post: t contiene todos los elementos de v en una estructura BST 
+	    balanceada */
+		void construeixArbre(BST<ParFreq> &t, vector<ParFreq> &v);
 };
 #endif
