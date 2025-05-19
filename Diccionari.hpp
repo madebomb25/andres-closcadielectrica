@@ -82,9 +82,14 @@ class Diccionari {
 	   //*********************************************************
 	   //Métodos auxiliares
 	   //*********************************************************
-	   /* Pre: ? */
+	   /* Pre: v no es un vector vacío */
 	   /* Post: t contiene todos los elementos de v en una estructura BST 
 	    balanceada */
 		void construeixArbre(BST<ParFreq> &t, vector<ParFreq> &v);
+
+		/* Pre: Cierto */
+		/* Post: t contiene todos los elementos de v en una estructura BST 
+		 balanceada */
+		void construeixBST(BST<ParFreq> &t, vector<ParFreq> &v, int inici, int final);
 };
 #endif
