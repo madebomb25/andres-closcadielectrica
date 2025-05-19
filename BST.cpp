@@ -1,3 +1,4 @@
+#include "BST.hpp"
 //*********************************************************
 // Mètodes privats auxiliars
 //*********************************************************
@@ -72,7 +73,7 @@ typename BST<T>::Item *BST<T>::insert(Item *node, const T &d)
 }
 //*********************************************************
 
-/* Pre: Cert */
+/* Pre: Cierto */
 /* Post: El resultado es el nodo de la jerarquia de nodos apuntada
    por 'node', con el mismo valor recibido por parámetro. Si no existe
    el nodo, entonces devolverá 'nullptr' como referencia.
