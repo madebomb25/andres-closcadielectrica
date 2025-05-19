@@ -67,8 +67,8 @@ void Diccionari::construeixDiccionari(const string &path)
         ParFreq pf(paraula, frequencia);
         dictionary_vector.push_back(pf);        
     }
-
-    sort(dictionary_vector.begin(), dictionary_vector.end()); 
+    if (dictionary_vector.size() > 1) 
+        sort(dictionary_vector.begin(), dictionary_vector.end()); 
     construeixArbre(dictionary, dictionary_vector); 
 }
 
@@ -77,9 +77,31 @@ void Diccionari::construeixDiccionari(const string &path)
 //Métodos auxiliares
 //*********************************************************
 
-/* Pre: ? */
+/* Pre: Cierto */
+/* Post: t contiene todos los elementos de v en una estructura BST 
+balanceada */
+void Diccionari::construeixBST(BST<ParFreq> &t, vector<ParFreq> &v, int inicial, int final) {
+    // CD: en el caso de que el subvector esté vacío (inicial > final),
+    // no hace falta hacer nada 
+    if (inicial <= final) {
+        // CR: insertar el elemento central
+        int central = inicial + (final-inicial) / 2;
+        t.insert(v[central]);
+
+        construeixBST(t, v, inicial, central - 1); 
+        /* HI: se han insertado siguiendo la lógica de un BST todos
+        los elementos de v[inicial..central] en el hijo izquierdo de t */
+        /* Fita: número de elementos del subvector v[inicial..central - 1] */
+        construeixBST(t, v, central + 1, final); 
+        /* HI: se han insertado siguiendo la lógica de un BST todos
+        los elementos de v[inicial..central] en el hijo derecho de t */
+        /* Fita: número de elementos del subvector v[central + 1..final] */
+    }
+}
+
+/* Pre: v no es un vector vacío */
 /* Post: t contiene todos los elementos de v en una estructura BST 
 balanceada */
 void Diccionari::construeixArbre(BST<ParFreq> &t, vector<ParFreq> &v) {
-
+    construeixBST(t, v, 0, int(v.size())-1); // Método auxiliar
 }
