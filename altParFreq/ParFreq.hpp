@@ -19,14 +19,14 @@ class ParFreq {
 	   
 	   /* 
 	   Pre: cierto. 
-	   Post: crea un pair con el primer atributo como una string vacía
+	   Post: crea un objeto ParFreq con el primer atributo como una string vacía
 	   y el segundo atributo inicializado a 0.
 	   */
 	   ParFreq();
 
 	   /* 
 	   Pre: cierto. 
-	   Post: crea un objeto de tipo pair con los atributos pasados por 
+	   Post: crea un objeto de tipo ParFreq con los atributos pasados por 
 	   parámetro. 
 	   */
 	   ParFreq(string word, int frequency); 
