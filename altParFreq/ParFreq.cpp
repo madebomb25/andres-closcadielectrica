@@ -7,7 +7,7 @@ using namespace std;
 
 /* 
 Pre: cierto. 
-Post: crea un pair con el primer atributo como una string vacía
+Post: crea un objeto ParFreq con el primer atributo como una string vacía
 y el segundo atributo inicializado a 0.
 */
 ParFreq::ParFreq() {
@@ -17,7 +17,7 @@ ParFreq::ParFreq() {
 
 /* 
 Pre: cierto. 
-Post: crea un objeto de tipo pair con los atributos pasados por 
+Post: crea un objeto ParFreq con los atributos pasados por 
 parámetro. 
 */
 ParFreq::ParFreq(string word, int frequency) {
@@ -60,14 +60,14 @@ int ParFreq::getFrequencia() const {
 
 /* Pre: Cierto  */
 /* Post: El resultado indica si la palabra del parámetro implícito
-es igual a la palabra del par recibido por parámetro */ 	   
+es igual a la palabra del ParFreq recibido por parámetro */ 	   
 bool ParFreq::operator==(const ParFreq &pf) const {
     return word == pf.word;
 }
 
 /* Pre: Cierto. */
 /* Post: El resultado indica si la palabra del parámetro implícito 
-es menor a la palabra del par recibido por parámetro */
+es menor a la palabra del ParFreq recibido por parámetro */
 bool ParFreq::operator<(const ParFreq &pf) const {
     return word < pf.word; 
 }
