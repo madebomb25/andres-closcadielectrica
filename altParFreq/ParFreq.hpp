@@ -60,14 +60,14 @@ class ParFreq {
 	   int getFrequencia() const;
 	   
 	   /* Pre: Cierto  */
-	   /* Post: El resultado indica si la palabra del parámetro implícito
-		es igual a la palabra del par recibido por parámetro */ 	   
+		/* Post: El resultado indica si la palabra del parámetro implícito
+		es igual a la palabra del ParFreq recibido por parámetro */ 	   
 	   bool operator==(const ParFreq &pf) const;
 	   
 	   
 	   /* Pre: Cierto. */
 	   /* Post: El resultado indica si la palabra del parámetro implícito 
-	   es menor a la palabra del par recibido por parámetro */
+	   es menor a la palabra del ParFreq recibido por parámetro */
 	   bool operator<(const ParFreq &pf) const; 
 	   
 	   
