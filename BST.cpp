@@ -157,6 +157,8 @@ template <typename T>
 pair<bool, T> BST<T>::find(const T &d) const
 {
 	pair<bool, T> res = make_pair(false, d);
+
+	// Buscamos en el BST con la versión privada de 'find()'.
 	Item *node = find(root, d);
 	if (node != NULL)
 	{
