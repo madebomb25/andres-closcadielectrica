@@ -8,27 +8,61 @@ using namespace std;
 // Constructores
 //*********************************************************
 
-/* Pre: Cert */
-/* Post: Si 'path' està associat a un fitxer, llegeix
-les entrades del fitxer i omple el diccionari del corrector
-que crea; altrament, mostra un missatge d'error. */
+/* Pre: Cierto 
+Post: Si 'path' está associado a un archivo, lee
+las entradas del archivo y llena el diccionario del corrector
+que crea; si no, muestra un mensaje d'error.
+*/
 Corrector::Corrector(const string &path)
 {
 	// Cargamos el diccionario con las palabras del archivo diccionario.
 	this->dictionary.loadDictionary(path);
 	this->alphabet = "abcdefghijklmnopqrstuvwxyz";
+	this->symbols = ".,!?;";
 }
 
 //*********************************************************
 // Métodos auxiliares
 //*********************************************************
 
+/* Pre: 'word' no es un string vacío.
+   Post: devuelve un char indicando el signo de puntuación que 
+   esté presente como último caracter de la palabra 'word' y que 
+   además exista en el string 'this->symbols'. Si la palabra no 
+   tiene ningún signo de puntuación contemplado en 'this->symbols'
+   o no tiene signo, entonces se devuelve un char espacio ' '.
+*/
+char Corrector::getWordSymbol(const string &word)
+{
+	char symbol = ' ';
+
+	unsigned int i = 0;
+	bool found = false;
+	while (i < this->symbols.size() and not found)
+	{
+		/* Inv: hemos determinado para los primeros 'i' signos de puntuación
+		   de 'this->symbols' que no son presentes como último caracter de
+		   'word'.
+
+		   Fita: word.size() - i.
+		*/
+
+		if (word[word.size()-1] == this->symbols[i]) found = true;
+
+		else ++i;
+	}
+
+	if (found) symbol = this->symbols[i];
+
+	return symbol;
+}
+
 /* Pre: cierto.
    Post: si la frecuencia de la palabra variante es mayor a la frecuencia
    contenida en el objeto 'current_best', entonces modificamos el objeto
    cambiando la palabra contenida por 'v_word' y la frecuencia por 'v_freq'.
 */
-void Corrector::setIfBestVariant(PairFreq &current_best, const string &v_word, int v_freq)
+void Corrector::setIfBestVariant(ParFreq &current_best, const string &v_word, int v_freq)
 {
 	if (v_freq != 0 and current_best.getFreq() < v_freq)
 	{
@@ -46,7 +80,7 @@ void Corrector::setIfBestVariant(PairFreq &current_best, const string &v_word, i
    Si para todas las variantes no hemos encontrado ninguna palabra en el diccionario,
    devolvemos un ParFreq cuya palabra será la original y con frecuencia 0.
 */
-PairFreq Corrector::insert(const string &word)
+ParFreq Corrector::insert(const string &word)
 {
 	ParFreq best_word(word, 0);
 
@@ -90,7 +124,7 @@ PairFreq Corrector::insert(const string &word)
    Si para todas las variantes no hemos encontrado ninguna palabra en el diccionario,
    devolvemos un ParFreq cuya palabra será la original y con frecuencia 0.
 */
-PairFreq Corrector::delLetter(const string &word)
+ParFreq Corrector::delLetter(const string &word)
 {
 	ParFreq best_word(word, 0);
 
@@ -122,7 +156,7 @@ PairFreq Corrector::delLetter(const string &word)
    Si para todas las variantes no hemos encontrado ninguna palabra en el diccionario,
    devolvemos un ParFreq cuya palabra será la original y con frecuencia 0.
 */
-PairFreq Corrector::subs(const string &word)
+ParFreq Corrector::subs(const string &word)
 {
 	ParFreq best_word(word, 0);
 
@@ -164,7 +198,7 @@ PairFreq Corrector::subs(const string &word)
    Si para todas las variantes no hemos encontrado ninguna palabra en el diccionario,
    devolvemos un ParFreq cuya palabra será la original y con frecuencia 0.
 */
-PairFreq Corrector::trans(const string &word)
+ParFreq Corrector::trans(const string &word)
 {
 	ParFreq best_word(word, 0);
 
@@ -196,14 +230,14 @@ PairFreq Corrector::trans(const string &word)
 */
 string Corrector::fixWord(const string &word)
 {
-	PairFreq best_word(word, this->dictionary.getFreq());
+	ParFreq best_word(word, this->dictionary.getFreq(word));
 
 	/* Si no es 0, la palabra existe y es correcta. Si es 0, entonces
 	   hay que intentar corregir la palabra.
 	*/
 	if (best_word.getFreq() == 0)
 	{
-		PairFreq candidate;
+		ParFreq candidate;
 
 		// Generamos candidatos y encontramos la mejor variante.
 		candidate = insert(word);
@@ -223,15 +257,15 @@ string Corrector::fixWord(const string &word)
 }
 
 //*********************************************************
-// Modificadors
+// Modificadores
 //*********************************************************
 
-/* Pre: Cert */
-/* Post: Si rutaInput està associat a un fitxer, llegeix el
- text del fitxer línia a línia, corregeix cadascuna de les
- paraules de cada línia, les escriu al fitxer associat a
- rutaOutput i escriu al fitxer associat a rutaLog els canvis
- que hagi fet; altrament, mostra un missatge d'error */
+/* Pre: Cierto */
+/* Post: Si rutaInput está associado a un archivo, lee el
+texto del archivo línea a línea, corrige cadauna de las
+palabras de cada línea, las escribe en el archivo associado a
+rutaOutput i escribe en el archivo associado a rutaLog los cambios
+que haya hecho; si no, muestra un mensaje de error */
 void Corrector::processaText(const string &rutaInput, const string &rutaOutput, const string &rutaLog)
 {
 
@@ -239,6 +273,16 @@ void Corrector::processaText(const string &rutaInput, const string &rutaOutput, 
 	if (not raw_text_file.is_open())
 	{
 		throw runtime_error("Error en obrir el fitxer amb el text a corretgir: " + rutaInput);
+	}
+
+	ofstream out_file(rutaOutput);
+	if (not out_file.is_open()) {
+		throw runtime_error("Error en obrir el fitxer output: " + rutaOutput);
+	}
+
+	ofstream log(rutaLog, ios_base::app);
+	if (not log.is_open()) {
+		throw runtime_error("Error en obrir el fitxer de registre: " + rutaLog);
 	}
 
 	string line;
@@ -254,7 +298,8 @@ void Corrector::processaText(const string &rutaInput, const string &rutaOutput, 
 
 		istringstream ss(line);
 
-		string word;
+		bool first_word = true;
+		string word, corrected_line = "";
 		while (ss >> word)
 		{
 			/* Inv: se han corregido y escrito en los archivos de log y salida (si era necesario)
@@ -263,16 +308,42 @@ void Corrector::processaText(const string &rutaInput, const string &rutaOutput, 
 			   Fita: la cantidad de palabras por leer en el canal de entrada 'ss'.
 			*/
 
-			// Alex: falta que en base a la palabra devuelta (si es igual a la original o está cambiada)
-			// la escribamos en el archivo de salida y en el Log si fue cambiada.
+			/* Si la palabra tiene un signo de puntuación lo
+			   guardamos y también lo borramos de la palabra.
+			*/
+			char symbol = getWordSymbol(word);
+
+			if (symbol != ' ') word.erase(word.size()-1);
+
 			string fixed_word = fixWord(word);
+
+			if (word != fixed_word) {
+				log << word << " -> " << fixed_word << endl; 
+			}
+
+			// Si no es la primera palabra de la línea, añadimos espacios detrás.
+			if (!first_word) corrected_line += ' ';
+			first_word = false;
+
+			corrected_line += fixed_word;
+
+			// Si había un signo de puntuación, lo añadimos de vuelta.
+			if (symbol != ' ') corrected_line += symbol;
 		}
+		out_file << corrected_line << endl; 
 	}
+	raw_text_file.close();
+	out_file.close();
+	log.close(); 
 }
 
 //*********************************************************
 // Lectura y escritura
 //*********************************************************
+/* Pre: Cierto */
+/* Post: Se han escrito en el archivo associado a rutaLog todas
+las correcciones hechas al texto de entrada siendo el formato de
+cada línea palabra_original -> palabra_corregida */
 void Corrector::bolcaRegistre(const string &rutaLog)
 {
 	ofstream fitxerLog(rutaLog);

@@ -29,7 +29,7 @@ public:
 	Post: crea un objeto de tipo ParFreq con los atributos pasados por
 	parámetro.
 	*/
-	ParFreq(string word, int freq);
+	ParFreq(const string &word, int freq);
 
 	//*********************************************************
 	// Destructores
@@ -48,12 +48,12 @@ public:
 	/* Pre: cierto
 	   Post: se asigna a 'this->word' el string que referencia 'word'.
 	*/
-	void ParFreq::setWord(const string &word);
+	void setWord(const string &word);
 
 	/* Pre: cierto
 	   Post: se asigna a 'this->freq' el entero 'freq'.
 	*/
-	void ParFreq::setFreq(int freq);
+	void setFreq(int freq);
 
 	//*********************************************************
 	// Consultores
