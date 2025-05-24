@@ -280,7 +280,7 @@ void Corrector::processaText(const string &rutaInput, const string &rutaOutput, 
 		throw runtime_error("Error en obrir el fitxer output: " + rutaOutput);
 	}
 
-	ofstream log(rutaLog, ios_base::app);
+	ofstream log(rutaLog);
 	if (not log.is_open()) {
 		throw runtime_error("Error en obrir el fitxer de registre: " + rutaLog);
 	}
