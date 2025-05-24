@@ -29,3 +29,10 @@ test2:
 	
 	diff -b registre2.log registre2.cor
 	
+test3:
+	./program.exe diccionari_freq3.txt sample3.inp sample3.out registre3.log
+	
+	diff -b sample3.out sample3.cor
+	
+	diff -b registre3.log registre3.cor
+	

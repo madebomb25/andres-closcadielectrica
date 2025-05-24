@@ -1,0 +1,41 @@
+why 130
+cover 45
+water 47
+sea 35
+continents 32
+percentage 51
+percent 52
+average 51
+billion 55
+million 56
+depth 40
+surface 40
+floor 40
+the 150
+that 150
+arctic 10
+salt 50
+years 10
+earth 110
+believe 60
+feet 90
+foot 90
+moon 60
+much 100
+than 100
+less  100
+more 100
+least 40
+oceans 30
+ocean 25
+pacific 10
+old 25
+contained 50
+removed 50
+are 180
+you 190
+them 190
+world 92
+
+
+
