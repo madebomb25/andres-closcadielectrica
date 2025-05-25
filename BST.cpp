@@ -1,6 +1,11 @@
 //*********************************************************
-// Mètodes privats auxiliars
+// Mètodos privados auxiliares
 //*********************************************************
+
+/* Pre: Cierto */
+/* Post: No hace nada si 'node' es NULL, sinó 
+libera espacio de la jerarquía de nodos
+apuntada por 'node' */
 template <typename T>
 void BST<T>::clear(Item *node)
 {
@@ -11,13 +16,12 @@ void BST<T>::clear(Item *node)
 		delete node;
 	}
 }
-//*********************************************************
 
-/* Pre: Cert */
-/* Post: Afegeix un node nou amb el valor
-   rebut per paràmetre a la jerarquia de
-   nodes apuntada per 'node', mantenint
-   les propietats de BST */
+/* Pre: Cierto */
+/* Post: Añade un nodo nuevo con el valor
+recibido por parámetro a la jerarquía de
+nodos apuntada per 'node', manteniendo
+las propiedades de BST */
 template <typename T>
 typename BST<T>::Item *BST<T>::insert(Item *node, const T &d)
 {
@@ -73,7 +77,7 @@ typename BST<T>::Item *BST<T>::insert(Item *node, const T &d)
 //*********************************************************
 
 /* Pre: Cierto */
-/* Post: El resultado es el nodo de la jerarquia de nodos apuntada
+/* Post: El resultado es el nodo de la jerarquía de nodos apuntada
    por 'node', con el mismo valor recibido por parámetro. Si no existe
    el nodo, entonces devolverá 'nullptr' como referencia.
 */
@@ -123,8 +127,11 @@ typename BST<T>::Item *BST<T>::find(Item *node, const T &d) const
 }
 
 //*********************************************************
-// Constructors
+// Constructores
 //*********************************************************
+
+/* Pre: Cierto */
+/* Post: El resultado es un BST sin ningún elemento */
 template <typename T>
 BST<T>::BST()
 {
@@ -134,6 +141,9 @@ BST<T>::BST()
 //*********************************************************
 // Destructor
 //*********************************************************
+
+/* Borra automáticamente los objectos locales
+al salir de un ámbito de visibilidad */
 template <typename T>
 BST<T>::~BST()
 {
@@ -141,8 +151,12 @@ BST<T>::~BST()
 }
 
 //*********************************************************
-// Modificadors
+// Modificadores
 //*********************************************************
+
+/* Pre: Cierto */
+/* Post: Añade un elemento, con el valor recibido
+per parámetro, al BST parámetro implícito */
 template <typename T>
 void BST<T>::insert(const T &d)
 {
@@ -150,8 +164,16 @@ void BST<T>::insert(const T &d)
 }
 
 //*********************************************************
-// Consultors
+// Consultores
 //*********************************************************
+
+/* Pre: Cierto */
+/* Post: El primer componente del resultado indica
+si el BST parámetro implícito contiene un elemento
+con el valor recibido por parámetro; en caso afirmativo,
+el segundo componente contiene el elemento del parámetro
+implícito con este valor, si no, contiene un
+elemento vacío */
 template <typename T>
 pair<bool, T> BST<T>::find(const T &d) const
 {
