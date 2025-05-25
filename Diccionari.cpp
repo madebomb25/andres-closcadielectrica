@@ -62,8 +62,6 @@ void Diccionari::loadDictionary(const string &path)
 */
 int Diccionari::getFreq(const string &word) const
 {
-    /* IMPLEMENTACIÓN TEMPRANA: no tiene en cuenta si
-    coinciden en frecuencia en hacer la búsqueda. */
     ParFreq pf(word, 0);
     return this->dictionary.find(pf).second.getFreq();
 }
