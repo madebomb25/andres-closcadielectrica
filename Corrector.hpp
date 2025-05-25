@@ -104,36 +104,18 @@ public:
 	string fixWord(const string &word);
 
 	//*********************************************************
-	// Modificadores
+	// Modificadores / Lectura y escritura
 	//*********************************************************
 
 	/* Pre: Cierto */
 	/* Post: Si rutaInput está associado a un archivo, lee el
 	 texto del archivo línea a línea, corrige cadauna de las
 	 palabras de cada línea, las escribe en el archivo associado a
-	 rutaOutput i escribe en el archivo associado a rutaLog los cambios
+	 rutaOutput y escribe en el archivo associado a rutaLog los cambios
 	 que haya hecho; si no, muestra un mensaje de error */
 	void processaText(const string &rutaInput, const string &rutaOutput, const string &rutaLog);
 
-	//...
-
-	//...
-
-	//*********************************************************
-	// Lectura y escritura
-	//*********************************************************
-
-	/* Pre: Cierto */
-	/* Post: Se han escrito en el archivo associado a rutaLog todas
-	 las correcciones hechas al texto de entrada siendo el formato de
-	 cada línea palabra_original -> palabra_corregida */
-	void bolcaRegistre(const string &rutaLog);
-
 private:
-	// IMPLEMENTACIÓ DE LA CLASSE Corrector
-	// (definició del nom i tipus de cada atribut)
-	// (poden definir-se mètodes privats que actuïn com a funcions auxiliars)
-
 	Diccionari dictionary;
 	string alphabet;
 	string symbols;
