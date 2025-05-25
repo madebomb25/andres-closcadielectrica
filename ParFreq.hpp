@@ -10,8 +10,6 @@ class ParFreq
 	//						de aparición en un corpus grande.
 
 public:
-	// ESPECIFICACIÓ DE LA CLASSE ParFreq
-	// (especificació Pre/Post de tots els mètodes)
 
 	//*********************************************************
 	// Constructores
@@ -78,8 +76,6 @@ public:
 	bool operator<(const ParFreq &pf) const;
 
 private:
-	// IMPLEMENTACIÓ DE LA CLASSE ParFreq
-	// (definició del nom i tipus de cada atribut)
 	string word;
 	int freq;
 };
