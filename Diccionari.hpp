@@ -11,14 +11,11 @@ using namespace std;
 
 class Diccionari
 {
-	// Tipus de mòdul: dades
-	// Descripció del tipus: Representa el conjunt d'entrades (paraules i freqüència)
-	// d'un diccionari.
+	// Tipo de módulo: datos
+	// Descripción del tipo: Representa el conjunto de entrades (palabras y frecuencia)
+	// de un diccionario.
 
 private:
-	// IMPLEMENTACIÓ DE LA CLASSE Diccionari
-	// (definició del nom i tipus de cada atribut)
-	// (poden definir-se mètodes privats que actuïn com a funcions auxiliars)
 	BST<ParFreq> dictionary;
 	string alphabet;
 
@@ -52,13 +49,13 @@ public:
 	~Diccionari();
 
 	//*********************************************************
-	// Modificadors
+	// Modificadores
 	//*********************************************************
 
 	void loadDictionary(const string &path);
 
 	//*********************************************************
-	// Consultors
+	// Consultores
 	//*********************************************************
 
 	/* IMPORTANTE: Tanto para la busqueda (si existe una palabra)
